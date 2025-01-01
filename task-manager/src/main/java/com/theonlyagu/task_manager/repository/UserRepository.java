@@ -1,4 +1,9 @@
 package com.theonlyagu.task_manager.repository;
 
-public class UserRepository {
+import com.theonlyagu.task_manager.entity.User;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface UserRepository extends JpaRepository<User, Long> {
 }

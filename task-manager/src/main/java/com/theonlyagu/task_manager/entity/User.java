@@ -1,15 +1,27 @@
 package com.theonlyagu.task_manager.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
+@Table(
+        name = "users",
+        uniqueConstraints = @UniqueConstraint( // Making sure the email column is unique
+                name = "emailid_unique",
+                columnNames = "email_address"
+        )
+)
 public class User {
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "id_sequence")
+    @SequenceGenerator(name = "id_sequence", sequenceName = "id_sequence", allocationSize = 1)
     private Long id;
+    @Column(nullable = false)
     private String name;
     private String accupation;
+
+    @Column(name = "email_address", nullable = false)
     private String email;
+    @Column(nullable = false)
     private String password;
 
     public User(String password, String email, String accupation, String name, Long id) {
