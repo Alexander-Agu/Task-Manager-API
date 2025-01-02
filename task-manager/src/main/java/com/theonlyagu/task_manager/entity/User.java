@@ -15,7 +15,6 @@ public class User {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "id_sequence")
     @SequenceGenerator(name = "id_sequence", sequenceName = "id_sequence", allocationSize = 1)
     private Long id;
-    @Column(nullable = false)
     private String name;
     private String accupation;
 
