@@ -47,7 +47,7 @@ public class UserService {
         Optional<User> userOptional = userRepository.findById(userId);
         if (userOptional.isPresent()) {
             User user = userOptional.get(); // Gets the Users object
-            task.setUser(user);
+            task.setUser(user); // Sets user foreign key
             return taskRepository.save(task);
         } else {
             throw new RuntimeException("User not found");
@@ -55,12 +55,16 @@ public class UserService {
     }
 
 
-    public void deleteAccount(Long id){
+    // Lets users delete their account and their tasks
+    public void deleteAccount(Long id, Long user_id){
         boolean accountExist = userRepository.existsById(id);
-        if(!accountExist){
+        if(accountExist){
+            userRepository.deleteById(id);
+            taskRepository.deleteByUserId(user_id);
+        } else {
             throw new IllegalStateException("This account does not exist");
         }
-        userRepository.deleteById(id);
+
     }
 
 }

@@ -34,8 +34,8 @@ public class UserController {
 
     // Deletes account by user_id
     @DeleteMapping(path = "/{userId}")
-    public void deleteUser(@PathVariable("userId") Long id){
-        userService.deleteAccount(id);
+    public void deleteUser(@PathVariable("userId") Long id, @PathVariable("userId") Long userId){
+        userService.deleteAccount(id, userId);
     }
 
     // Saves task to the DB Table
