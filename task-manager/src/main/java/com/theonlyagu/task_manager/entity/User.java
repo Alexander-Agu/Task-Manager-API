@@ -2,6 +2,8 @@ package com.theonlyagu.task_manager.entity;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(
         name = "users",
@@ -16,18 +18,33 @@ public class User {
     @SequenceGenerator(name = "id_sequence", sequenceName = "id_sequence", allocationSize = 1)
     private Long id;
     private String name;
-    private String accupation;
+    private String occupation;
 
     @Column(name = "email_address", nullable = false)
     private String email;
     @Column(nullable = false)
     private String password;
 
-    public User(String password, String email, String accupation, String name, Long id) {
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private List<Task> task;
+
+    public User(){
+
+    } 
+
+    public User(String password, String email, String occupation, String name, Long id) {
         this.password = password;
         this.email = email;
-        this.accupation = accupation;
+        this.occupation = occupation;
         this.name = name;
+        this.id = id;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -48,11 +65,11 @@ public class User {
     }
 
     public String getAccupation() {
-        return accupation;
+        return occupation;
     }
 
     public void setAccupation(String accupation) {
-        this.accupation = accupation;
+        this.occupation = accupation;
     }
 
     public String getName() {
@@ -62,5 +79,4 @@ public class User {
     public void setName(String name) {
         this.name = name;
     }
-
 }
